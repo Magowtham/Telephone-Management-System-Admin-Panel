@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/Magowtham/Telephone-Management-System-Admin-Panel.git/static/css/main.b0a16bf1.css",
+    "main.js": "/Magowtham/Telephone-Management-System-Admin-Panel.git/static/js/main.c9dcae9c.js",
+    "static/css/771.5a362ac7.chunk.css": "/Magowtham/Telephone-Management-System-Admin-Panel.git/static/css/771.5a362ac7.chunk.css",
+    "static/js/771.84641560.chunk.js": "/Magowtham/Telephone-Management-System-Admin-Panel.git/static/js/771.84641560.chunk.js",
+    "static/css/690.4bdbdf19.chunk.css": "/Magowtham/Telephone-Management-System-Admin-Panel.git/static/css/690.4bdbdf19.chunk.css",
+    "static/js/690.3de25bc2.chunk.js": "/Magowtham/Telephone-Management-System-Admin-Panel.git/static/js/690.3de25bc2.chunk.js",
+    "static/js/48.68721dbb.chunk.js": "/Magowtham/Telephone-Management-System-Admin-Panel.git/static/js/48.68721dbb.chunk.js",
+    "index.html": "/Magowtham/Telephone-Management-System-Admin-Panel.git/index.html",
+    "main.b0a16bf1.css.map": "/Magowtham/Telephone-Management-System-Admin-Panel.git/static/css/main.b0a16bf1.css.map",
+    "main.c9dcae9c.js.map": "/Magowtham/Telephone-Management-System-Admin-Panel.git/static/js/main.c9dcae9c.js.map",
+    "771.5a362ac7.chunk.css.map": "/Magowtham/Telephone-Management-System-Admin-Panel.git/static/css/771.5a362ac7.chunk.css.map",
+    "771.84641560.chunk.js.map": "/Magowtham/Telephone-Management-System-Admin-Panel.git/static/js/771.84641560.chunk.js.map",
+    "690.4bdbdf19.chunk.css.map": "/Magowtham/Telephone-Management-System-Admin-Panel.git/static/css/690.4bdbdf19.chunk.css.map",
+    "690.3de25bc2.chunk.js.map": "/Magowtham/Telephone-Management-System-Admin-Panel.git/static/js/690.3de25bc2.chunk.js.map",
+    "48.68721dbb.chunk.js.map": "/Magowtham/Telephone-Management-System-Admin-Panel.git/static/js/48.68721dbb.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b0a16bf1.css",
+    "static/js/main.c9dcae9c.js"
+  ]
+}
