@@ -1,0 +1,62 @@
+.home-notification {
+  text-align: center;
+  width: 400px;
+  padding: 20px;
+}
+.home-notification {
+  position: absolute;
+  left: 50%;
+  top: -300px;
+  transform: translateX(-50%);
+  z-index: 9999;
+  background: #fff;
+  border-radius: 4px;
+}
+.home-notification.show {
+  top: 80px;
+  transition: top ease-in 0.2s;
+}
+.home-notification button {
+  position: absolute;
+  right: 2%;
+  top: 5%;
+  background: none;
+  border: 0;
+  padding: 2px;
+  cursor: pointer;
+}
+.home-notification button :hover {
+  transform: scale(1.2);
+  transition: transform 0.1s ease-in;
+}
+.home-notification p {
+  color: red;
+  font-size: 1rem;
+  text-transform: capitalize;
+}
+.home-notification button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-height: 1000px) {
+  .error-notification.show {
+    top: 80px;
+  }
+}
+@media screen and (max-height: 850px) {
+  .home-notification.show {
+    top: 50px;
+  }
+}
+@media screen and (max-height: 750px) {
+  .home-notification.show {
+    top: 20px;
+  }
+}
+@media screen and (max-height: 650px) {
+  .home-notification.show {
+    top: 0px;
+  }
+}

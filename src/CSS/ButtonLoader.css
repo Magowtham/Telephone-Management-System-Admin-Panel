@@ -1,0 +1,43 @@
+.button_loader-container {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 20%;
+  height: 100%;
+}
+.button_is_loading:before,
+.button_is_loading:after {
+  content: "";
+  position: absolute;
+  top: 35%;
+  transform: translateX(-35%);
+  left: 15%;
+}
+
+.button_animation:after {
+  width: 14px;
+  height: 14px;
+  border: 3px solid #fff;
+  border-radius: 50px;
+}
+
+.button_animation:after {
+  border-bottom-color: transparent;
+  animation: spin_button 1s infinite linear;
+}
+
+@keyframes spin_button {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media screen and (max-width: 980px) {
+  .button_is_loading:before,
+  .button_is_loading:after {
+    left: 20%;
+  }
+}

@@ -1,0 +1,326 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.hide {
+  display: none;
+}
+.expense_btn_media{
+  display: block;
+}
+.reduction_status{
+  transform: translateX(0px);
+}
+.user_not_found_heading{
+  font-weight: 200;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+.empty-animation-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+.empty-animation-container h1 {
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+.sub-table-sec {
+  overflow: auto;
+  height: 85%;
+  width: 80%;
+  margin: auto;
+  position: relative;
+}
+.paginater-sec {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 15%;
+  /* border: 2px solid red; */
+}
+table {
+  width: 100%;
+  margin: auto;
+  border-collapse: collapse;
+  position: relative;
+}
+.table-loader-container {
+  width: fit-content;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+table td {
+  padding: 10px;
+  border: 1px solid black;
+  text-align: center;
+  max-width: 80px;
+}
+table th {
+  position: sticky;
+  top: 0;
+  z-index: 9;
+  padding: 15px;
+  background-color: mediumslateblue;
+  color: #fff;
+  border: 1px solid black;
+  font-size: 1rem;
+  font-weight: 600;
+}
+table tbody {
+  font-size: 1rem;
+  font-weight: 500;
+}
+table tbody .manage-sec {
+  text-align: center;
+}
+.view-details-sec {
+  text-align: center;
+}
+table tbody .edit-btn {
+  border: 0;
+  padding: 5px;
+  background: none;
+  cursor: pointer;
+  transform: translateX(-20px);
+  font-size: 1rem;
+}
+
+table tbody .edit-btn span {
+  color: rgb(97, 97, 255);
+}
+table tbody .edit-btn:hover {
+  opacity: 0.6;
+}
+table tbody .delete-btn {
+  border: 0;
+  padding: 5px;
+  background: none;
+  cursor: pointer;
+  transform: translateX(20px);
+  font-size: 1rem;
+}
+
+table tbody .delete-btn span {
+  color: red;
+}
+
+table tbody .delete-btn:hover {
+  opacity: 0.6;
+}
+
+table tbody .recharge-history-btn,
+table tbody .expense-history-btn {
+  padding: 9px;
+  border: 0;
+  color: #fff;
+  background: mediumslateblue;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+table tbody .recharge-history-btn {
+  transform: translateX(-20px);
+}
+table tbody .expense-history-btn {
+  transform: translateX(20px);
+}
+table tbody .recharge-history-btn:hover {
+  opacity: 0.8;
+  transition: opacity ease-in 0.1s;
+}
+
+table tbody .expense-history-btn:hover {
+  opacity: 0.8;
+  transition: opacity ease-in 0;
+}
+
+
+
+@media screen and (max-width: 1700px) {
+  table tbody .edit-btn {
+    transform: translateX(-9px);
+  }
+  table tbody .delete-btn {
+    transform: translateX(9px);
+  }
+}
+@media screen and (max-width: 1600px) {
+  table tbody .delete-btn {
+    transform: translateX(5px);
+  }
+  table tbody .edit-btn {
+    transform: translateX(-5px);
+  }
+
+  table tbody .recharge-history-btn {
+    transform: translateX(-10px);
+  }
+  table tbody .expense-history-btn {
+    transform: translateX(10px);
+  }
+}
+@media screen and (max-width:1470px) and (min-width:1200px) {
+  table tbody .recharge-history-btn {
+    display: block;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  table tbody .expense-history-btn {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 10px;
+  }
+  
+}
+@media screen and (max-width: 1300px) {
+  table th {
+    padding: 10px;
+  }
+
+  table td {
+    padding: 5px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  thead tr {
+    display: none;
+  }
+  table td {
+    text-align: justify;
+    max-width: 100%;
+  }
+  tr {
+    margin: 0 0 1rem 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border: 2px solid black;
+    border-radius: 4px;
+  }
+
+  tbody tr:before {
+    content: "";
+    display: block;
+    height: 1px;
+  }
+
+  td {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+  }
+  td:nth-of-type(1) {
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+  }
+  td:nth-of-type(2) {
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+  }
+  td:nth-of-type(3) {
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+  }
+  td:nth-of-type(4) {
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+  }
+  td:nth-of-type(5) {
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+  }
+
+  td:before {
+    font-weight: bold;
+    width: 50%;
+    float: left;
+    box-sizing: border-box;
+    padding: 8px;
+    color: mediumslateblue;
+    font-size: 1rem;
+  }
+
+  td:nth-of-type(1):before {
+    content: "Sl. NO.";
+  }
+  td:nth-of-type(2):before {
+    content: "RFID NO.";
+  }
+  td:nth-of-type(3):before {
+    content: "Name";
+  }
+  td:nth-of-type(4):before {
+    content: "Roll Number";
+  }
+  td:nth-of-type(5):before {
+    content: "Balance";
+  }
+  table tbody .manage-sec {
+    display: flex;
+  }
+
+  table tbody .manage-sec {
+    display: flex;
+    width: 30%;
+    justify-content: space-evenly;
+    position: absolute;
+    bottom: 0;
+    transform: translateY(2.5%);
+    left: 0;
+    padding: 10px;
+    border: 0;
+  }
+  .view-details-sec {
+    display: flex;
+    width: 70%;
+    padding: 10px;
+    justify-content: space-evenly;
+    align-self: flex-end;
+    border: 0;
+  }
+  table tbody .edit-btn {
+    transform: translateX(0px);
+  }
+  table tbody .delete-btn {
+    transform: translateX(0px);
+  }
+  table tbody .edit-btn:hover {
+    transform: translateX(0px) scale(1.1);
+  }
+  table tbody .delete-btn:hover {
+    transform: translateX(0px) scale(1.1);
+  }
+  table tbody .recharge-history-btn {
+    transform: translateX(0px);
+    padding: 10px;
+    font-weight: 600;
+    margin: 2px 0px;
+  }
+  table tbody .expense-history-btn {
+    transform: translateX(0px);
+    padding: 10px;
+    font-weight: 600;
+  }
+  .paginater-sec {
+    width: 80%;
+    margin: auto;
+  }
+}

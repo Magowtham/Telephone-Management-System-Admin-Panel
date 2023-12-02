@@ -1,0 +1,324 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.home-page-container {
+  display: flex;
+  flex-direction: column;
+}
+.home-page-container {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: auto;
+}
+
+.hide {
+  display: none;
+}
+.overlay {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  background: black;
+  z-index: 99;
+  opacity: 0.7;
+  display: none;
+}
+.overlay.open {
+  display: block;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px 0px;
+  width: 80%;
+  margin: auto;
+
+}
+.nav-heading-sec h1{
+  font-size: 2rem;
+  font-weight: 200;
+}
+
+nav .search-bar-sec .search-bar {
+  border: 0;
+  box-shadow: 0 0 2px 4px #cacaca;
+  width: 300px;
+  height: 40px;
+  border-radius: 4px;
+}
+nav .search-bar-sec .search-bar input {
+  border: 0;
+  height: 100%;
+  width: 78%;
+  padding: 5px;
+  border-radius: 4px;
+  outline: none;
+  padding: 0 12px;
+}
+nav .search-bar-sec .search-bar input[type="text"] {
+  font-size: 0.9rem;
+}
+nav .search-bar-sec .search-bar button {
+  border: 0;
+  height: 100%;
+  width: 22%;
+  padding: 5px;
+  border-radius: 0px 4px 4px 0px;
+  background-color: mediumslateblue;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+nav .search-bar-sec .search-bar button:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+.user-table-sec {
+  height: 90%;
+  min-height: 600px;
+  position: relative;
+  /* border: 2px solid red; */
+}
+.user-table-sec {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.recharge-download-form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  z-index: 999;
+}
+.recharge-download-form {
+  max-width: 400px;
+  width: 100%;
+  padding:0px 44px 40px 44px;
+  border-radius: 8px;
+  background-color: #ffff;
+}
+
+.recharge-download-form button {
+  margin-top: 30px;
+  padding: 15px;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: mediumslateblue;
+  border: 0;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.recharge-download-form button:nth-child(6) {
+  background-color: rgb(75, 226, 75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.recharge-download-form button:hover {
+  opacity: 0.8;
+  transition: opacity ease-in 0.1s;
+}
+.recharge-download-form button:nth-child(6) img {
+  margin-left: 2px;
+}
+.recharge-download-form {
+  display: flex;
+  flex-direction: column;
+  visibility: hidden;
+}
+.recharge-download-form h1 {
+  text-align: center;
+  margin: 30px 0px 10px 0px;
+  font-weight: 500;
+}
+.recharge-download-form.show {
+  visibility: visible;
+}
+.calender-container {
+  visibility: hidden;
+  position: absolute;
+  top: 50%;
+  left: 60%;
+  width: 300px;
+  z-index: 1000;
+}
+.calender-container {
+  border-radius: 4px;
+}
+.calender-container.show {
+  visibility: visible;
+}
+.calender-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: mediumslateblue;
+  border-radius: 4px 4px 0px 0px;
+}
+.calender-header button {
+  background: none;
+}
+.calender-header button:hover {
+  transform: scale(1.1);
+  transition: transform 0.1s ease-in;
+}
+.calender-header h1 {
+  font-size: 1.3rem;
+  color: #fff;
+  margin: 0;
+}
+.calender-header button {
+  margin: 0;
+}
+.calender-days-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(35px, 1fr));
+  gap: 10px;
+}
+.calender-days-container {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 0px 0px 4px 4px;
+}
+.calender-days-container div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 35px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.calender-days-container div:hover {
+  background: mediumslateblue;
+  color: #fff;
+  transition: background ease-in 0.1s;
+}
+.footer-sec {
+  height: 10%;
+  width: 80%;
+  margin: auto;
+  padding: 35px;
+  min-width: 800px;
+}
+.footer-sec {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-sec button {
+  padding: 15px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: 0;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+}
+.footer-sec button {
+  display: flex;
+  align-items: center;
+  background-color: mediumslateblue;
+  position: relative;
+}
+.footer-sec button img {
+  margin-left: 2px;
+}
+.footer-sec button span {
+  display: inline-block;
+  margin: 0px 4px;
+}
+.footer-sec button:hover {
+  opacity: 0.8;
+  transition: opacity ease-in 0.1s;
+}
+
+/* navbar media screen start */
+@media screen and (max-width: 1300px) {
+  nav .logo-sec {
+    width: 70px;
+  }
+
+  nav .heading-sec h1 {
+    font-size: 1.6rem;
+    line-height: 30px;
+  }
+
+  nav .heading-sec h3 {
+    font-size: 0.9rem;
+  }
+  nav .search-bar-sec .search-bar {
+    width: 250px;
+  }
+  nav .search-bar-sec .search-bar button {
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  nav {
+    justify-content: space-between;
+  }
+  nav .logo-sec {
+    width: 60px;
+  }
+
+  nav .heading-sec h1 {
+    font-size: 1.4rem;
+    line-height: 25px;
+  }
+
+  nav .heading-sec h3 {
+    font-size: 0.9rem;
+  }
+}
+@media screen and (max-width: 1090px) {
+  .footer-sec {
+    width: 100%;
+  }
+
+@media screen and (max-width: 980px) {
+  nav .heading-sec h1 {
+    display: none;
+  }
+
+  nav .heading-sec h3 {
+    display: none;
+  }
+  .footer-sec {
+    padding: 20px 20px;
+    min-width: 550px;
+  }
+  .footer-sec button {
+    padding: 14px 12px;
+    font-weight: 600;
+  }
+}
+
+}
+@media screen and (max-width: 700px) {
+  .footer-sec {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    min-width: 0px;
+    padding: 0;
+
+  }
+  .footer-sec button {
+    flex: 1;
+    min-width: calc(33.33% - 10px);
+    margin: 5px;
+    justify-content: center;
+  }
+}
