@@ -480,7 +480,6 @@ const autoLogin=async ()=>{
               path="/expense_history"
               element={
                 <ExpenseHistory
-                  reductionStatus={reductionStatus}
                   setNavigation={setNavigation}
                   refreshExpenseTable={refreshExpenseTable}
                   setRefreshExpenseTable={setRefreshExpenseTable}

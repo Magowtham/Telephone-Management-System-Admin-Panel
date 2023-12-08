@@ -130,6 +130,7 @@ useEffect(()=>{
   useEffect(() => {
     if (refreshUserInfoTable) {
       setTotalUsers(null);
+      setpresentPageNumber(0);
       fetchPageData(0, true);
       setRefreshUserInfoTable(false);
     }
@@ -160,7 +161,7 @@ useEffect(()=>{
   return (
     <>
     <UserForm isVisible={isEditBtnClicked&&!isAddUserBtnClicked&&!isRemoveBtnClicked} isOverlay={!isMonthlyButtonClicked?isOverlay:false} setIsOverlay={setIsOverlay} editData={pageData[editIndex]} setIsPageRefresh={setIsPageRefresh} authToken={authToken} setFormLoading={setFormLoading}/>
-    <RemoveForm isVisible={isRemoveBtnClicked&&isOverlay} rfid={pageData[removeIndex]?.rfid} setIsOverlay={setIsOverlay} setIsRemoveBtnClicked={setIsRemoveBtnClicked} setIsPageRefresh={setIsPageRefresh} authToken={authToken} setFormLoading={setFormLoading}/>
+    <RemoveForm isVisible={isRemoveBtnClicked&&isOverlay} rfid={pageData[removeIndex]?.rfid} setIsOverlay={setIsOverlay} setIsRemoveBtnClicked={setIsRemoveBtnClicked} setIsPageRefresh={setIsPageRefresh} authToken={authToken} setFormLoading={setFormLoading} setTotalUsers={setTotalUsers}/>
       <div className="sub-table-sec">
             <table
             >
@@ -248,6 +249,7 @@ useEffect(()=>{
           totalElements={totalUsers}
           pageSize={pageSize}
           handlePageChange={handleTablePageChange}
+          forcePage={presentPageNumber}
           isVisible={
             searchRefresh &&
             totalUsers !== null &&

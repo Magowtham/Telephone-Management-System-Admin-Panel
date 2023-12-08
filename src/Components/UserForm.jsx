@@ -127,7 +127,7 @@ function UserForm({isVisible,isOverlay,setIsOverlay,editData,setIsPageRefresh,au
               htmlFor="name"
               style={{ color: formError.nameError ? `red` : `` }}
             >
-              {formError.nameError ? formError.nameError : "Email"}
+              {formError.nameError ? formError.nameError : "Full Name"}
             </label>
             <input
               type="text"

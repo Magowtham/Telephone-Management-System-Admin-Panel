@@ -6,7 +6,6 @@ import "../CSS/ExpenseHistory.css";
 import "../CSS/RetryForm.css";
 
 function ExpenseHistory({
-  reductionStatus,
   setNavigation,
   refreshExpenseTable,
   setRefreshExpenseTable,
@@ -15,33 +14,39 @@ function ExpenseHistory({
   const { state } = useLocation();
   const navigate=useNavigate()
   const [networkError, setNetworkError] = useState(false);
+  const [aborter,setAborter]=useState(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [pageData, setPageData] = useState([]);
   const [totalHistoryCount, setTotalHistoryCount] = useState(null);
-  const [pageLimit] = useState(15);
-  const [presentPage, setPresentPage] = useState(1);
+  const [pageSize] = useState(15);
+  const [presentPageNumber, setPresentPageNumber] = useState(0);
   const [isTableLoading, setIsTableLoading] = useState(false);
   const fetchPageData = async (pageNumber, totalCount) => {
     try {
       setIsTableLoading(true);
       setNetworkError(false);
+      aborter?.abort();
+      const abortController=new AbortController();
+      setAborter(abortController);
       const response = await fetch(
         `${process.env.REACT_APP_API_URL}/expense_history?userId=${
           state?.userId
-        }&pageNumber=${pageNumber}&pageLimit=${pageLimit}&reductionStatus=${
-          reductionStatus ? 1 : 0
-        }`,
+        }&pageNumber=${pageNumber}&pageLimit=${pageSize}`,
         {
           method: "GET",
           headers:{ "Authorisation":`Bearer ${authToken}`},
+          signal:abortController.signal
         }
       );
       const data = await response.json();
+      setIsTableLoading(false);
       switch (response.status) {
         case 200:
           if (totalCount) {
             setTotalHistoryCount(data?.historyLength);
+
           }
+          console.log(data.historyLength);
           setPageData(data?.history);
           break;
           case 401:
@@ -51,20 +56,22 @@ function ExpenseHistory({
           setNetworkError(true);
       }
     } catch (error) {
-      setErrorMessage("oops something went wrong!");
-      setNetworkError(true);
-    } finally {
-      setIsTableLoading(false);
-    }
+      if(error.name!=="AbortError"){
+        setIsTableLoading(false);
+        setErrorMessage("oops something went wrong!");
+        setNetworkError(true);
+      }
+    } 
   };
   const handleHistoryPage = (e) => {
     fetchPageData(e.selected, false);
-    setPresentPage(e.selected + 1);
+    setPresentPageNumber(e.selected);
   };
   useEffect(() => {
     if (refreshExpenseTable) {
       setNetworkError(false);
       setTotalHistoryCount(null);
+      setPresentPageNumber(0);
       fetchPageData(0, true);
       setRefreshExpenseTable(false);
     }
@@ -118,7 +125,7 @@ function ExpenseHistory({
                   const date = new Date(element.date);
                   return (
                     <tr key={index}>
-                      <td>{(presentPage - 1) * pageLimit + (index + 1)}</td>
+                      <td>{presentPageNumber * pageSize + (index + 1)}</td>
                       <td>{`${date.getDate()}/${
                         date.getMonth() + 1
                       }/${date.getFullYear()}`}</td>
@@ -148,7 +155,8 @@ function ExpenseHistory({
       >
         <Paginater
           totalElements={totalHistoryCount}
-          pageSize={pageLimit}
+          pageSize={pageSize}
+          forcePage={presentPageNumber}
           handlePageChange={handleHistoryPage}
           isVisible={
             !networkError &&

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import "../CSS/Paginater.css";
-function Paginater({ totalElements, pageSize, handlePageChange, isVisible }) {
+function Paginater({ totalElements, pageSize, handlePageChange, isVisible,forcePage }) {
   const [isMedia, setIsMedia] = useState(false);
   const handleMediaScreen = () => {
     if (window.innerWidth <= 1000) {
@@ -18,6 +18,7 @@ function Paginater({ totalElements, pageSize, handlePageChange, isVisible }) {
   return (
     <>
       <ReactPaginate
+      forcePage={forcePage}
         previousLabel={"Previous"}
         nextLabel={"Next"}
         breakLabel={"..."}

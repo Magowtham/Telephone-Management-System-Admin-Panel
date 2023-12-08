@@ -2,7 +2,7 @@ import React,{useState,useEffect} from "react";
 import FormLoader from "./FormLoader";
 import "../CSS/RemoveForm.css"
 
-function RemoveForm({isVisible,rfid,setIsRemoveBtnClicked,setIsOverlay,setIsPageRefresh,authToken,setFormLoading}){
+function RemoveForm({isVisible,rfid,setIsRemoveBtnClicked,setIsOverlay,setIsPageRefresh,authToken,setFormLoading,setTotalUsers}){
     const [userInput, setUserInput] = useState({
         rfid: "",
       });
@@ -44,6 +44,7 @@ function RemoveForm({isVisible,rfid,setIsRemoveBtnClicked,setIsOverlay,setIsPage
                     setIsRemoveBtnClicked(false);
                     setIsOverlay(false);
                     setIsPageRefresh(true)
+                    setTotalUsers(result.totalUsers)
                 break;
                 default:
                     alert(result.error)
