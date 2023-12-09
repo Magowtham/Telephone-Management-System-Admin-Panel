@@ -77,7 +77,7 @@ function Login() {
               htmlFor="userName"
               style={{ color: formError.userNameError ? `red` : `` }}
             >
-              {formError.userNameError ? formError.userNameError : "Email"}
+              {formError.userNameError ? formError.userNameError : "User Name"}
             </label>
             <input
               type="text"
