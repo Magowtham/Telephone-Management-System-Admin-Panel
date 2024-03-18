@@ -7,13 +7,13 @@ import "../CSS/RetryForm.css";
 
 function RechargeHistory({
   reductionStatus,
-  setNavigation,
-  refreshRechargeTable,
-  setRefreshRechargeTable,
-  authToken
+  setPageIndex,
+  userRechargePageRefresh,
+  setUserRechargePageRefresh,
+  authToken,
 }) {
   const { state } = useLocation();
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const [networkError, setNetworkError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [pageData, setPageData] = useState([]);
@@ -33,7 +33,7 @@ function RechargeHistory({
         }`,
         {
           method: "GET",
-          headers:{ "Authorisation":`Bearer ${authToken}`},
+          headers: { Authorisation: `Bearer ${authToken}` },
         }
       );
       const data = await response.json();
@@ -64,16 +64,16 @@ function RechargeHistory({
   };
 
   useEffect(() => {
-    if (refreshRechargeTable) {
+    if (userRechargePageRefresh) {
       setNetworkError(false);
       setTotalHistoryCount(null);
       fetchPageData(0, true);
-      setRefreshRechargeTable(false);
+      setUserRechargePageRefresh(false);
     }
-  }, [refreshRechargeTable]);
+  }, [userRechargePageRefresh]);
 
   useEffect(() => {
-    setNavigation(2);
+    setPageIndex(3);
     fetchPageData(0, true);
   }, []);
 

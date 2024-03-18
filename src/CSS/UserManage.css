@@ -3,11 +3,11 @@
   padding: 0;
   box-sizing: border-box;
 }
-.home-page-container {
+.user-manage-container {
   display: flex;
   flex-direction: column;
 }
-.home-page-container {
+.user-manage-container {
   width: 100%;
   height: 100vh;
   position: relative;
@@ -38,11 +38,11 @@ nav {
   padding: 40px 0px;
   width: 80%;
   margin: auto;
-
 }
-.nav-heading-sec h1{
+.nav-heading-sec h1 {
   font-size: 2rem;
   font-weight: 200;
+  text-transform: capitalize;
 }
 
 nav .search-bar-sec .search-bar {
@@ -101,7 +101,7 @@ nav .search-bar-sec .search-bar button:hover {
 .recharge-download-form {
   max-width: 400px;
   width: 100%;
-  padding:0px 44px 40px 44px;
+  padding: 0px 44px 40px 44px;
   border-radius: 8px;
   background-color: #ffff;
 }
@@ -288,24 +288,23 @@ nav .search-bar-sec .search-bar button:hover {
     width: 100%;
   }
 
-@media screen and (max-width: 980px) {
-  nav .heading-sec h1 {
-    display: none;
-  }
+  @media screen and (max-width: 980px) {
+    nav .heading-sec h1 {
+      display: none;
+    }
 
-  nav .heading-sec h3 {
-    display: none;
+    nav .heading-sec h3 {
+      display: none;
+    }
+    .footer-sec {
+      padding: 20px 20px;
+      min-width: 550px;
+    }
+    .footer-sec button {
+      padding: 14px 12px;
+      font-weight: 600;
+    }
   }
-  .footer-sec {
-    padding: 20px 20px;
-    min-width: 550px;
-  }
-  .footer-sec button {
-    padding: 14px 12px;
-    font-weight: 600;
-  }
-}
-
 }
 @media screen and (max-width: 700px) {
   .footer-sec {
@@ -313,7 +312,6 @@ nav .search-bar-sec .search-bar button:hover {
     justify-content: space-between;
     min-width: 0px;
     padding: 0;
-
   }
   .footer-sec button {
     flex: 1;

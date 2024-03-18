@@ -6,15 +6,15 @@ import "../CSS/ExpenseHistory.css";
 import "../CSS/RetryForm.css";
 
 function ExpenseHistory({
-  setNavigation,
-  refreshExpenseTable,
-  setRefreshExpenseTable,
-  authToken
+  setPageIndex,
+  userExpensePageRefresh,
+  setUserExpensePageRefresh,
+  authToken,
 }) {
   const { state } = useLocation();
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const [networkError, setNetworkError] = useState(false);
-  const [aborter,setAborter]=useState(null);
+  const [aborter, setAborter] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [pageData, setPageData] = useState([]);
   const [totalHistoryCount, setTotalHistoryCount] = useState(null);
@@ -26,16 +26,14 @@ function ExpenseHistory({
       setIsTableLoading(true);
       setNetworkError(false);
       aborter?.abort();
-      const abortController=new AbortController();
+      const abortController = new AbortController();
       setAborter(abortController);
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/expense_history?userId=${
-          state?.userId
-        }&pageNumber=${pageNumber}&pageLimit=${pageSize}`,
+        `${process.env.REACT_APP_API_URL}/expense_history?userId=${state?.userId}&pageNumber=${pageNumber}&pageLimit=${pageSize}`,
         {
           method: "GET",
-          headers:{ "Authorisation":`Bearer ${authToken}`},
-          signal:abortController.signal
+          headers: { Authorisation: `Bearer ${authToken}` },
+          signal: abortController.signal,
         }
       );
       const data = await response.json();
@@ -44,42 +42,40 @@ function ExpenseHistory({
         case 200:
           if (totalCount) {
             setTotalHistoryCount(data?.historyLength);
-
           }
           console.log(data.historyLength);
           setPageData(data?.history);
           break;
-          case 401:
-            navigate("/login")
+        case 401:
+          navigate("/login");
         default:
           setErrorMessage(data.error + "!");
           setNetworkError(true);
       }
     } catch (error) {
-      if(error.name!=="AbortError"){
+      if (error.name !== "AbortError") {
         setIsTableLoading(false);
         setErrorMessage("oops something went wrong!");
         setNetworkError(true);
       }
-    } 
+    }
   };
   const handleHistoryPage = (e) => {
     fetchPageData(e.selected, false);
     setPresentPageNumber(e.selected);
   };
   useEffect(() => {
-    if (refreshExpenseTable) {
+    if (userExpensePageRefresh) {
       setNetworkError(false);
       setTotalHistoryCount(null);
       setPresentPageNumber(0);
       fetchPageData(0, true);
-      setRefreshExpenseTable(false);
+      setUserExpensePageRefresh(false);
     }
-  }, [refreshExpenseTable]);
+  }, [userExpensePageRefresh]);
   useEffect(() => {
-    setNavigation(3);
+    setPageIndex(4);
     fetchPageData(0, true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>

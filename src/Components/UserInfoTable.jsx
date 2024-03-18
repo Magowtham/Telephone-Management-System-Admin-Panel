@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Paginater from "./Paginater";
 import PageLoader from "./PageLoader";
@@ -8,6 +8,7 @@ import "../CSS/UserInfoTable.css";
 import "../CSS/RetryForm.css";
 let abortControllers = [];
 function UserInfoTable({
+  hostelState,
   isSearchLoading,
   searchData,
   searchRefresh,
@@ -16,26 +17,26 @@ function UserInfoTable({
   isOverlay,
   setIsOverlay,
   reductionStatus,
-  setNavigation,
-  refreshUserInfoTable,
-  setRefreshUserInfoTable,
+  setPageIndex,
+  userManagePageRefresh,
+  setUserManagePageRefresh,
   isAddUserBtnClicked,
   isMonthlyButtonClicked,
   authToken,
-  setFormLoading
+  setFormLoading,
 }) {
   const navigate = useNavigate();
-  const [isEditBtnClicked,setIsEditBtnClicked]=useState(false);
-  const [isRemoveBtnClicked,setIsRemoveBtnClicked]=useState(false)
-  const [editIndex,setEditIndex]=useState(-1)
-  const [removeIndex,setRemoveIndex]=useState(-1)
+  const [isEditBtnClicked, setIsEditBtnClicked] = useState(false);
+  const [isRemoveBtnClicked, setIsRemoveBtnClicked] = useState(false);
+  const [editIndex, setEditIndex] = useState(-1);
+  const [removeIndex, setRemoveIndex] = useState(-1);
   const [isTableLoading, setIsTableLoading] = useState(false);
   const [pageData, setPageData] = useState([]);
   const [pageSize] = useState(9);
   const [presentPageNumber, setpresentPageNumber] = useState(0);
   const [totalUsers, setTotalUsers] = useState(null);
-  const [isPageRefresh,setIsPageRefresh]=useState(false)
-  const [expenseBtnMedia,setExpenseBtnMedia]=useState(false);
+  const [isPageRefresh, setIsPageRefresh] = useState(false);
+  const [expenseBtnMedia, setExpenseBtnMedia] = useState(false);
 
   const fetchPageData = async (pageNumber, totalCount) => {
     try {
@@ -48,10 +49,10 @@ function UserInfoTable({
         abortControllers.push(abortController);
       }
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/get_users?pageNumber=${pageNumber}&pageLimit=${pageSize}`,
+        `${process.env.REACT_APP_API_URL}/get_users?hostel_id=${hostelState.id}&pageNumber=${pageNumber}&pageLimit=${pageSize}`,
         {
-          method:"GET",
-          headers:{ "Authorisation":`Bearer ${authToken}`},
+          method: "GET",
+          headers: { Authorisation: `Bearer ${authToken}` },
           signal: abortController.signal,
         }
       );
@@ -71,7 +72,7 @@ function UserInfoTable({
           abortControllers = [];
       }
     } catch (error) {
-      console.log(error.name)
+      console.log(error.name);
     } finally {
       if (abortControllers.length === 0) {
         setIsTableLoading(false);
@@ -79,15 +80,13 @@ function UserInfoTable({
     }
   };
   const handleRechargeHistory = (userId) => {
-    setNavigation(2);
     navigate("recharge_history", {
       state: { userId },
     });
   };
   const handleExpenseHistory = (userId) => {
-    setNavigation(3);
     navigate("expense_history", {
-      state: {userId },
+      state: { userId },
     });
   };
   const handleTablePageChange = (e) => {
@@ -95,29 +94,29 @@ function UserInfoTable({
     setpresentPageNumber(e.selected);
     inputClear(true);
   };
-const handleEditBtn=(index)=>{
-  setEditIndex(index)
-  setIsEditBtnClicked(true);
-  setIsOverlay(true)
-}
-const handleRemoveBtn=(index)=>{
-  setRemoveIndex(index);
-  setIsRemoveBtnClicked(true);
-  setIsOverlay(true)
-}
-const expenseBtnMediaHandler=()=>{
-  if(window.innerWidth<1470&&window.innerWidth>1200){
-    setExpenseBtnMedia(true);
-  }else{
-    setExpenseBtnMedia(false);
-  }
-}
-useEffect(()=>{
-  if(isPageRefresh){
-    fetchPageData(presentPageNumber,false)
-    setIsPageRefresh(false)
-  }
-},[isPageRefresh])
+  const handleEditBtn = (index) => {
+    setEditIndex(index);
+    setIsEditBtnClicked(true);
+    setIsOverlay(true);
+  };
+  const handleRemoveBtn = (index) => {
+    setRemoveIndex(index);
+    setIsRemoveBtnClicked(true);
+    setIsOverlay(true);
+  };
+  const expenseBtnMediaHandler = () => {
+    if (window.innerWidth < 1470 && window.innerWidth > 1200) {
+      setExpenseBtnMedia(true);
+    } else {
+      setExpenseBtnMedia(false);
+    }
+  };
+  useEffect(() => {
+    if (isPageRefresh) {
+      fetchPageData(presentPageNumber, false);
+      setIsPageRefresh(false);
+    }
+  }, [isPageRefresh]);
   useEffect(() => {
     setPageData(searchData);
   }, [searchData]);
@@ -128,114 +127,136 @@ useEffect(()=>{
     }
   }, [searchRefresh]);
   useEffect(() => {
-    if (refreshUserInfoTable) {
+    if (userManagePageRefresh) {
       setTotalUsers(null);
       setpresentPageNumber(0);
       fetchPageData(0, true);
-      setRefreshUserInfoTable(false);
+      setUserManagePageRefresh(false);
     }
-  }, [refreshUserInfoTable]);
-  useEffect(()=>{
-    if(!isOverlay){
-      setIsRemoveBtnClicked(false)
-      setIsEditBtnClicked(false)
-    }
-  },[isOverlay])
-
-  useEffect(()=>{
-    window.addEventListener("resize",expenseBtnMediaHandler);
-    expenseBtnMediaHandler()
-    return ()=>window.removeEventListener("resize",expenseBtnMediaHandler);
-  },[window.innerWidth])
+  }, [userManagePageRefresh]);
   useEffect(() => {
-    setNavigation(1);
+    if (!isOverlay) {
+      setIsRemoveBtnClicked(false);
+      setIsEditBtnClicked(false);
+    }
+  }, [isOverlay]);
+
+  useEffect(() => {
+    window.addEventListener("resize", expenseBtnMediaHandler);
+    expenseBtnMediaHandler();
+    return () => window.removeEventListener("resize", expenseBtnMediaHandler);
+  }, [window.innerWidth]);
+  useEffect(() => {
+    setPageIndex(2);
     fetchPageData(0, true);
   }, []);
-  if(!searchRefresh&&!searchData.length){
-    return(
+  if (!searchRefresh && !searchData.length) {
+    return (
       <>
-      <h1 className="user_not_found_heading">user not found</h1>
+        <h1 className="user_not_found_heading">user not found</h1>
       </>
-    )
+    );
   }
   return (
     <>
-    <UserForm isVisible={isEditBtnClicked&&!isAddUserBtnClicked&&!isRemoveBtnClicked} isOverlay={!isMonthlyButtonClicked?isOverlay:false} setIsOverlay={setIsOverlay} editData={pageData[editIndex]} setIsPageRefresh={setIsPageRefresh} authToken={authToken} setFormLoading={setFormLoading}/>
-    <RemoveForm isVisible={isRemoveBtnClicked&&isOverlay} rfid={pageData[removeIndex]?.rfid} setIsOverlay={setIsOverlay} setIsRemoveBtnClicked={setIsRemoveBtnClicked} setIsPageRefresh={setIsPageRefresh} authToken={authToken} setFormLoading={setFormLoading} setTotalUsers={setTotalUsers}/>
+      <UserForm
+        isVisible={
+          isEditBtnClicked && !isAddUserBtnClicked && !isRemoveBtnClicked
+        }
+        isOverlay={!isMonthlyButtonClicked ? isOverlay : false}
+        setIsOverlay={setIsOverlay}
+        editData={pageData[editIndex]}
+        setIsPageRefresh={setIsPageRefresh}
+        authToken={authToken}
+        setFormLoading={setFormLoading}
+      />
+      <RemoveForm
+        isVisible={isRemoveBtnClicked && isOverlay}
+        rfid={pageData[removeIndex]?.rfid}
+        setIsOverlay={setIsOverlay}
+        setIsRemoveBtnClicked={setIsRemoveBtnClicked}
+        setIsPageRefresh={setIsPageRefresh}
+        authToken={authToken}
+        setFormLoading={setFormLoading}
+        setTotalUsers={setTotalUsers}
+      />
       <div className="sub-table-sec">
-            <table
-            >
-              <thead>
-                <tr>
-                  <th>SL. NO.</th>
-                  <th>RFID</th>
-                  <th>Student Name</th>
-                  <th>Roll Number</th>
-                  <th className={`${reductionStatus ? `hide` : ``}`}>
-                    Balance Amount
-                  </th>
-                  <th>Manage</th>
-                  <th>{reductionStatus ? `Recharge` : `View`} Details</th>
-                </tr>
-              </thead>
-              <tbody
-                className={`${isTableLoading || isSearchLoading ? `hide` : ``}`}
-              >
-                {pageData?.map((user, index) => (
-                  <tr key={index + 1}>
-                    <td className="slno">
-                      {presentPageNumber * pageSize + (index + 1)}
-                    </td>
-                    <td>{user?.rfid}</td>
-                    <td style={{ textTransform: "capitalize" }}>
-                      {user?.name}
-                    </td>
-                    <td>{user?.rollNumber}</td>
-                    <td className={`${reductionStatus ? `hide` : ``}`}>
-                      {user?.balance}
-                    </td>
-                    <td className="manage-sec">
-                      <button
-                        className="edit-btn"
-                        onClick={()=>{
-                          handleEditBtn(index)
-                        }}
-                      >
-                        <img src="/Icons/edit.png" alt="" />
-                      </button>
-                      <button
-                        onClick={()=>{
-                          handleRemoveBtn(index)
-                        }}
-                        className="delete-btn"
-                      >
-                        <img src="/Icons/remove.png" alt="" />
-                      </button>
-                    </td>
-                    <td className="view-details-sec">
-                      <button
-                        onClick={() => {
-                          handleRechargeHistory(user?._id);
-                        }}
-                        className={`recharge-history-btn ${reductionStatus?`reduction_status`:``}`}
-                      >
-                        Recharge
-                      </button>
-                      <button
-                        onClick={() => {
-                          handleExpenseHistory(user?._id);
-                        }}
-                        className={`expense-history-btn ${
-                          reductionStatus ? `hide` : ``
-                        } ${expenseBtnMedia&&!reductionStatus?`expense_btn_media`:``}`}
-                      >
-                        Expense
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+        <table>
+          <thead>
+            <tr>
+              <th>SL. NO.</th>
+              <th>RFID</th>
+              <th>Student Name</th>
+              <th>Roll Number</th>
+              <th className={`${reductionStatus ? `hide` : ``}`}>
+                Balance Amount
+              </th>
+              <th>Manage</th>
+              <th>{reductionStatus ? `Recharge` : `View`} Details</th>
+            </tr>
+          </thead>
+          <tbody
+            className={`${isTableLoading || isSearchLoading ? `hide` : ``}`}
+          >
+            {pageData?.map((user, index) => (
+              <tr key={index + 1}>
+                <td className="slno">
+                  {presentPageNumber * pageSize + (index + 1)}
+                </td>
+                <td>{user?.card_id}</td>
+                <td style={{ textTransform: "capitalize" }}>{user?.name}</td>
+                <td>{user?.roll_number}</td>
+                <td className={`${reductionStatus ? `hide` : ``}`}>
+                  {user?.balance}
+                </td>
+                <td className="manage-sec">
+                  <button
+                    className="edit-btn"
+                    onClick={() => {
+                      handleEditBtn(index);
+                    }}
+                  >
+                    <img src="/Icons/edit.png" alt="" />
+                  </button>
+                  <button
+                    onClick={() => {
+                      handleRemoveBtn(index);
+                    }}
+                    className="delete-btn"
+                  >
+                    <img src="/Icons/remove.png" alt="" />
+                  </button>
+                </td>
+                <td className="view-details-sec">
+                  <button
+                    onClick={() => {
+                      handleRechargeHistory(user?._id);
+                    }}
+                    className={`recharge-history-btn ${
+                      reductionStatus ? `reduction_status` : ``
+                    }`}
+                  >
+                    Recharge
+                  </button>
+                  <button
+                    onClick={() => {
+                      handleExpenseHistory(user?._id);
+                    }}
+                    className={`expense-history-btn ${
+                      reductionStatus ? `hide` : ``
+                    } ${
+                      expenseBtnMedia && !reductionStatus
+                        ? `expense_btn_media`
+                        : ``
+                    }`}
+                  >
+                    Expense
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
         <div
           className={`table-loader-container ${
             isTableLoading || isSearchLoading ? `` : `hide`
@@ -250,11 +271,7 @@ useEffect(()=>{
           pageSize={pageSize}
           handlePageChange={handleTablePageChange}
           forcePage={presentPageNumber}
-          isVisible={
-            searchRefresh &&
-            totalUsers !== null &&
-            totalUsers !== 0
-          }
+          isVisible={searchRefresh && totalUsers !== null && totalUsers !== 0}
         />
       </div>
     </>

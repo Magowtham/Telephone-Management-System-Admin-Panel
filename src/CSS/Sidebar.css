@@ -1,0 +1,44 @@
+.homepage-sidebar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 99;
+}
+
+.homepage-sidebar {
+  width: 65px;
+  max-width: 65px;
+  height: 100vh;
+  background-color: mediumslateblue;
+}
+
+.homepage-sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.homepage-sidebar .btn-sec {
+  /* border: 2px solid red; */
+  display: flex;
+  flex-direction: column;
+}
+
+.homepage-sidebar .btn-sec button {
+  background: none;
+  border: 0;
+  background-color: #fff;
+  padding: 10px;
+  margin: 20px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.1s ease-in-out;
+}
+.homepage-sidebar .btn-sec button:hover {
+  transform: scale(1.1);
+}
+.homepage-sidebar .btn-sec button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
