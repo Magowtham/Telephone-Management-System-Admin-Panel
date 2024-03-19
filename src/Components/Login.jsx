@@ -30,6 +30,7 @@ function Login() {
   const sendLoginData = async () => {
     try {
       setIsFormLoading(true);
+
       const response = await fetch(`${process.env.REACT_APP_ADMIN_URL}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -38,8 +39,8 @@ function Login() {
       const result = await response.json();
       switch (response.status) {
         case 200:
-          sessionStorage.setItem("auth_token",result.token)
-          navigate("/")
+          sessionStorage.setItem("auth_token", result.token);
+          navigate("/home");
           break;
         case 404:
           setFormError({ userNameError: result.error });

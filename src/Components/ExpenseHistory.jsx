@@ -125,9 +125,9 @@ function ExpenseHistory({
                       <td>{`${date.getDate()}/${
                         date.getMonth() + 1
                       }/${date.getFullYear()}`}</td>
-                      <td>{element?.callStartTime}</td>
-                      <td>{element?.callEndTime}</td>
-                      <td>{element?.reductedAmount}</td>
+                      <td>{element?.call_start_time}</td>
+                      <td>{element?.call_end_time}</td>
+                      <td>{element?.reducted_amount}</td>
                     </tr>
                   );
                 })}

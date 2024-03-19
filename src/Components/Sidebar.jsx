@@ -15,6 +15,7 @@ function Sidebar({
   };
   const handleLogOut = () => {
     navigate("/");
+    sessionStorage.removeItem("auth_token");
   };
   const handlePageRefresh = () => {
     switch (pageIndex) {

@@ -11,6 +11,8 @@ import "../CSS/FormLoader.css";
 
 function UserManage({
   setPageIndex,
+  reductionStatus,
+  authToken,
   userManagePageRefresh,
   setUserManagePageRefresh,
   userRechargePageRefresh,
@@ -20,8 +22,6 @@ function UserManage({
 }) {
   const { state } = useLocation();
   const navigate = useNavigate();
-  const authToken = sessionStorage.getItem("auth_token");
-  const [reductionStatus, setReductionStatus] = useState(false);
   const [isAddUserBtnClicked, setIsAddUserBtnClicked] = useState(false);
   const [searchData, setSearchData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -49,7 +49,6 @@ function UserManage({
   });
   const [isDownloadValidted, setIsDownloadValidted] = useState(false);
   const [isRehchargeDownloading, setIsRechargeDownloading] = useState(false);
-  const [navigation, setNavigation] = useState(1);
   const searchInputRef = useRef(null);
   const startButtonRef = useRef(null);
   const endButtonDateRef = useRef(null);
@@ -63,7 +62,7 @@ function UserManage({
         const abortController = new AbortController();
         setAborter(abortController);
         const result = await fetch(
-          `${process.env.REACT_APP_API_URL}/search_user?query=${query}`,
+          `${process.env.REACT_APP_API_URL}/search_user?query=${query}&hostel_id=${state?.id}`,
           {
             method: "GET",
             signal: abortController.signal,
@@ -120,6 +119,7 @@ function UserManage({
     setIsNotificationOpen(false);
     setIsCalender(false);
   };
+
   const handleDailyRechargeDownload = async () => {
     const currentDate = new Date();
     const button = dailyRechargeDownloadButtonRef.current;
@@ -174,6 +174,7 @@ function UserManage({
       button.disabled = false;
     }
   };
+
   const handleMonthChange = (state) => {
     const currentDate = date;
     const days = [];
@@ -193,6 +194,7 @@ function UserManage({
     setMonth(currentDate.getMonth() + 1);
     setYear(currentDate.getFullYear());
   };
+
   const handleDateClick = (dateState) => {
     const currentDate = date;
     const days = [];
@@ -344,32 +346,6 @@ function UserManage({
       })();
     }
   }, [isDownloadValidted]);
-  useEffect(() => {
-    const autoLogin = async () => {
-      try {
-        const response = await fetch(
-          `${process.env.REACT_APP_ADMIN_URL}/auto_login`,
-          {
-            method: "GET",
-            headers: {
-              Authorisation: `Bearer ${authToken}`,
-            },
-          }
-        );
-        const result = await response.json();
-        switch (response.status) {
-          case 200:
-            setReductionStatus(result.reductionStatus);
-            break;
-          default:
-            navigate("/login");
-        }
-      } catch (error) {
-        console.log(error.name);
-      }
-    };
-    autoLogin();
-  }, []);
   return (
     <>
       <UserForm
@@ -395,7 +371,7 @@ function UserManage({
         </div>
         <nav>
           <div className="nav-heading-sec">
-            <h1>{state.name ? `${state.name} Hostel` : `History`}</h1>
+            <h1>{state?.name ? `${state.name} Hostel` : `History`}</h1>
           </div>
           <div className="search-bar-sec">
             <div className="search-bar">
@@ -427,7 +403,6 @@ function UserManage({
                   inputClear={setSearchInputClear}
                   isOverlay={isOverlay}
                   setIsOverlay={setIsOverlay}
-                  setNavigation={setNavigation}
                   setPageIndex={setPageIndex}
                   userManagePageRefresh={userManagePageRefresh}
                   setUserManagePageRefresh={setUserManagePageRefresh}

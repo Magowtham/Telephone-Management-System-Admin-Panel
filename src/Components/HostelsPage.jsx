@@ -19,11 +19,10 @@ function HostelsPage({
   const [isFormValidated, setIsFormValidated] = useState(false);
   const [formError, setFormError] = useState({});
   const [isFormLoading, setIsFormLoading] = useState(false);
-
   const fetchDataFromServer = async () => {
     try {
       loaderRef.current.continuousStart();
-      const response = await fetch("http://localhost:9000/admin/hostels", {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/hostels`, {
         method: "GET",
         headers: { Authorisation: `Bearer ${authToken}` },
       });
@@ -41,7 +40,7 @@ function HostelsPage({
     try {
       setIsFormLoading(true);
       const response = await fetch(
-        "http://localhost:9000/admin/create_hostel",
+        `${process.env.REACT_APP_API_URL}/create_hostel`,
         {
           method: "POST",
           headers: {
