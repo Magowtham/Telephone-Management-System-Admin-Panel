@@ -114,6 +114,7 @@ function ExpenseHistory({
                   <th>Call Start Time</th>
                   <th>Call End Time</th>
                   <th>Reducted Amount</th>
+                  <th>Test Amount</th>
                 </tr>
               </thead>
               <tbody className={`${isTableLoading ? `hide` : ``}`}>
@@ -128,6 +129,7 @@ function ExpenseHistory({
                       <td>{element?.call_start_time}</td>
                       <td>{element?.call_end_time}</td>
                       <td>{element?.reducted_amount}</td>
+                      <td>{element?.test_amount}</td>
                     </tr>
                   );
                 })}
